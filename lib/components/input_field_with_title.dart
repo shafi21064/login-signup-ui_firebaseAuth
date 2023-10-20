@@ -4,17 +4,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class InputFieldWithTitle extends StatelessWidget {
-  final String fieldTitle, hintText;
+  final String fieldTitle, hintText, errorText;
   final bool obsecureText;
-  final dynamic validator;
   final TextEditingController controller;
+  final IconButton? suffixIcon;
   const InputFieldWithTitle({
     super.key,
     required this.fieldTitle,
     required this.hintText,
-    required this.validator,
+    required this.errorText,
     required this.obsecureText,
-    required this.controller
+    required this.controller,
+    this.suffixIcon
   });
 
   @override
@@ -34,7 +35,8 @@ class InputFieldWithTitle extends StatelessWidget {
             controller: controller,
               hintText: hintText,
             obsecureText: obsecureText,
-            validator: validator,
+            errorText: errorText,
+            suffixIcon: suffixIcon,
           )
         ],
       ),

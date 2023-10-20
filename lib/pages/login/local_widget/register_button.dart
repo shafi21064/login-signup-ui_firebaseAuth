@@ -1,3 +1,4 @@
+import 'package:firebase_project/pages/register/view/register.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../log_in_package.dart';
@@ -18,6 +19,9 @@ class RegisterButton extends StatelessWidget {
             color: Colors.black.withOpacity(.5)),
         SizedBox(width: 5.w,),
         TxtButton(
+          onTap: (){
+            Navigator.push(context, MaterialPageRoute(builder: (context)=> Register()));
+          },
             buttonName: 'Register',
             fontSize: 13.sp,
             color: Colors.blue

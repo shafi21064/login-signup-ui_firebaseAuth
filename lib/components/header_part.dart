@@ -1,21 +1,26 @@
 import 'package:flutter/material.dart';
-import '../log_in_package.dart';
+import '../pages/login/log_in_package.dart';
 
 class HeaderPart extends StatelessWidget {
-  const HeaderPart({super.key});
+  final String title, subTitle;
+  const HeaderPart({
+    super.key,
+    required this.title,
+    required this.subTitle
+  });
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
+    return  Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         TitleText(
-          titleText: 'Login',
+          titleText: title,
           fontSize: 25,
           color: Colors.black,
         ),
         TitleText(
-          titleText: 'Login to continue this app',
+          titleText: subTitle,
           fontSize: 14,
           color: Colors.grey,
         ),

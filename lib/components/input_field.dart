@@ -4,14 +4,16 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class InputField extends StatelessWidget {
   final String hintText;
   final bool obsecureText;
-  final dynamic validator;
+  final String errorText;
   final TextEditingController controller;
+  final IconButton? suffixIcon;
   const InputField({
     super.key,
     required this.hintText,
     required this.obsecureText,
-    required this.validator,
-    required this.controller
+    required this.controller,
+    required this.errorText,
+    this.suffixIcon
   });
 
   @override
@@ -21,7 +23,6 @@ class InputField extends StatelessWidget {
       child: TextFormField(
         controller: controller,
         obscureText: obsecureText,
-        validator: validator,
         decoration: InputDecoration(
           hintText: hintText,
           enabledBorder: OutlineInputBorder(
@@ -33,7 +34,14 @@ class InputField extends StatelessWidget {
           ),
           fillColor: const Color(0xfff7f8fa),
           filled: true,
+          suffixIcon: suffixIcon
         ),
+        validator: (value){
+          if(value!.isEmpty){
+            return errorText;
+          }
+          return null;
+        }
       ),
     );
   }

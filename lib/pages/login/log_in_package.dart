@@ -1,6 +1,6 @@
-export 'local_widget/form&button.dart';
-export 'local_widget/header_part.dart';
-export 'local_widget/login_form.dart';
+export 'local_widget/forms&button.dart';
+export 'local_widget/login_header.dart';
+export '../../components/header_part.dart';
 export 'local_widget/other_option_text.dart';
 export 'local_widget/other_options.dart';
 export 'local_widget/register_button.dart';

@@ -24,9 +24,8 @@ class _LogInState extends State<LogIn> {
                 children: [
                   const Center(child: Logo()),
                   SizedBox(height: 10.h,),
-                  const HeaderPart(),
-                  SizedBox(height: 16.h,),
-                  const FormAndButton(),
+                  const LoginHeader(),
+                  const LoginFormsAndButton(),
                    const OthersOptionText(),
                   SizedBox(height: 10.h,),
                   const OtherOptions(),
