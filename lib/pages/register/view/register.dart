@@ -11,13 +11,17 @@ class Register extends StatelessWidget {
         child: SingleChildScrollView(
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: const Column(
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                CustomBackButton(),
-                Center(child: Logo()),
-                RegisterHeader(),
-                LoginFormsAndButton()
+                CustomBackButton(
+                  onPressed: (){
+                    Navigator.pop(context);
+                  },
+                ),
+                const Center(child: Logo()),
+                const RegisterHeader(),
+                const RegisterFormsAndButton()
               ],
             ),
           ),

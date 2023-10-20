@@ -1,27 +1,33 @@
 import 'package:firebase_project/pages/forgot_pass/view/enter_mail.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../log_in_package.dart';
+
+import '../register_package.dart';
 
 
-class LoginFormsAndButton extends StatefulWidget {
-  const LoginFormsAndButton({super.key});
+class RegisterFormsAndButton extends StatefulWidget {
+  const RegisterFormsAndButton({super.key});
 
   @override
-  State<LoginFormsAndButton> createState() => _LoginFormsAndButtonState();
+  State<RegisterFormsAndButton> createState() => _RegisterFormsAndButtonState();
 }
 
-class _LoginFormsAndButtonState extends State<LoginFormsAndButton> {
+class _RegisterFormsAndButtonState extends State<RegisterFormsAndButton> {
 
   final _formKey = GlobalKey<FormState>();
+  final usernameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-  bool _psecure = true;
+  final confirmPasswordController = TextEditingController();
+  bool _psecure = true, _cpSecure = true;
+
 
   void passwordIsSecure (){
     _psecure = !_psecure;
   }
-
+  void cPasswordIsSecure (){
+    _psecure = !_psecure;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,14 +37,21 @@ class _LoginFormsAndButtonState extends State<LoginFormsAndButton> {
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           InputFieldWithTitle(
+              fieldTitle: 'Username',
+              hintText: 'Enter your name',
+              errorText: 'Enter name',
+              obsecureText: false,
+              controller: usernameController
+          ),
+          InputFieldWithTitle(
               fieldTitle: 'Email',
-              hintText: 'Enter your Mail',
-              errorText: 'Enter Email',
+              hintText: 'Enter your email',
+              errorText: 'Enter email',
               obsecureText: false,
               controller: emailController),
           InputFieldWithTitle(
               fieldTitle: 'Password',
-              hintText: 'Enter your Mail',
+              hintText: 'Enter your password',
               errorText: 'Enter password',
               obsecureText: _psecure,
               controller: passwordController,
@@ -50,14 +63,21 @@ class _LoginFormsAndButtonState extends State<LoginFormsAndButton> {
               });
             },),
           ),
-          TxtButton(
-            onTap: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context)=> EnterEmail()));
-            },
-              buttonName: 'Forgot password?',
-              fontSize: 13.sp,
-              color: Colors.black.withOpacity(.3)
+          InputFieldWithTitle(
+            fieldTitle: 'Password',
+            hintText: 'Enter confirm password',
+            errorText: 'Enter password again',
+            obsecureText: _cpSecure,
+            controller: confirmPasswordController,
+            suffixIcon: IconButton(
+              icon:Icon(_cpSecure? Icons.remove_red_eye : Icons.remove_red_eye_outlined),
+              onPressed: (){
+                setState(() {
+                  cPasswordIsSecure();
+                });
+              },),
           ),
+
           CustomButton(
               buttonName: 'Login',
               onTap: (){
