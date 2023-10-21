@@ -4,10 +4,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class CustomButton extends StatelessWidget {
   final String buttonName;
   final VoidCallback onTap;
+  final bool loading;
   const CustomButton({
     super.key,
     required this.buttonName,
-    required this.onTap
+    required this.onTap,
+    this.loading = false
+
   });
 
   @override
@@ -23,7 +26,8 @@ class CustomButton extends StatelessWidget {
           color: const Color(0xff0265ff),
           borderRadius: BorderRadius.circular(25.r)
         ),
-        child: Text(
+        child: loading? const CircularProgressIndicator( color: Colors.white, strokeWidth: 3,) :
+        Text(
           buttonName,
           style: TextStyle(
               fontSize: 17.sp,

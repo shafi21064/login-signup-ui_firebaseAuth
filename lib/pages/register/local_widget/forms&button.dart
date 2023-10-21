@@ -1,8 +1,10 @@
-import 'package:firebase_project/pages/forgot_pass/view/enter_mail.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_project/pages/login/view/log_in.dart';
+import 'package:firebase_project/utils/utils.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import '../register_package.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 
 class RegisterFormsAndButton extends StatefulWidget {
@@ -20,13 +22,25 @@ class _RegisterFormsAndButtonState extends State<RegisterFormsAndButton> {
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
   bool _psecure = true, _cpSecure = true;
+  bool loading = false;
 
+  FirebaseAuth _auth = FirebaseAuth.instance;
 
   void passwordIsSecure (){
     _psecure = !_psecure;
   }
   void cPasswordIsSecure (){
-    _psecure = !_psecure;
+    _cpSecure = !_cpSecure;
+  }
+
+
+@override
+  void dispose() {
+    usernameController.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+    confirmPasswordController.dispose();
+    super.dispose();
   }
 
   @override
@@ -79,10 +93,42 @@ class _RegisterFormsAndButtonState extends State<RegisterFormsAndButton> {
           ),
 
           CustomButton(
-              buttonName: 'Login',
-              onTap: (){
+              buttonName: 'Register',
+              loading: loading,
+              onTap: ()async {
                 if(_formKey.currentState!.validate()){
+                  if(passwordController.text.toString() == confirmPasswordController.text.toString()){
+                    setState(() {
+                      loading = true;
+                    });
 
+                    try {
+                      UserCredential userCredential = await _auth.createUserWithEmailAndPassword(
+                          email: emailController.text.toString(),
+                          password: passwordController.text.toString()
+                      );
+                      setState(() {
+                        loading = false ;
+                      });
+                      Utils().toastMessage('Successfully registered', Colors.green);
+                      Navigator.pushAndRemoveUntil(context,
+                          MaterialPageRoute(builder: (context)=> const LogIn()), (route) => false);
+                    } on FirebaseAuthException catch (e) {
+                      if (e.code == 'weak-password') {
+                        Utils().toastMessage('${e.message}', Colors.red);
+                      } else if (e.code == 'email-already-in-use') {
+                        print('The account already exists for that email.');
+                        Utils().toastMessage('${e.message}', Colors.red);
+                      }
+                      setState(() {
+                        loading = false ;
+                      });
+                    } catch (e) {
+                      print(e);
+                    }
+                  } else {
+                     return Utils().toastMessage("Password didn't match", Colors.red);
+                  }
                 }
               }
           )

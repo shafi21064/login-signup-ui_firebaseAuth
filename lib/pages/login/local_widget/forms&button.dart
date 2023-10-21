@@ -1,4 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_project/pages/forgot_pass/view/enter_mail.dart';
+import 'package:firebase_project/pages/home/home.dart';
+import 'package:firebase_project/pages/register/view/register.dart';
+import 'package:firebase_project/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../log_in_package.dart';
@@ -18,8 +22,27 @@ class _LoginFormsAndButtonState extends State<LoginFormsAndButton> {
   final passwordController = TextEditingController();
   bool _psecure = true;
 
+  FirebaseAuth _auth = FirebaseAuth.instance;
+
   void passwordIsSecure (){
     _psecure = !_psecure;
+  }
+
+  void logedIn ()async{
+    try {
+      UserCredential userCredential = await _auth.signInWithEmailAndPassword(
+          email: emailController.text.toString(),
+          password: passwordController.text.toString()
+      );
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context)=> Home()));
+
+    } on FirebaseAuthException catch (e) {
+      print(e.code);
+      if (e.code == 'INVALID_LOGIN_CREDENTIALS') {
+        Utils().toastMessage('You have entered wrong information', Colors.red);
+      }
+    }
   }
 
 
@@ -32,13 +55,13 @@ class _LoginFormsAndButtonState extends State<LoginFormsAndButton> {
         children: [
           InputFieldWithTitle(
               fieldTitle: 'Email',
-              hintText: 'Enter your Mail',
+              hintText: 'Enter your email',
               errorText: 'Enter Email',
               obsecureText: false,
               controller: emailController),
           InputFieldWithTitle(
               fieldTitle: 'Password',
-              hintText: 'Enter your Mail',
+              hintText: 'Enter your password',
               errorText: 'Enter password',
               obsecureText: _psecure,
               controller: passwordController,
@@ -62,7 +85,7 @@ class _LoginFormsAndButtonState extends State<LoginFormsAndButton> {
               buttonName: 'Login',
               onTap: (){
                 if(_formKey.currentState!.validate()){
-
+                  logedIn();
                 }
               }
           )
