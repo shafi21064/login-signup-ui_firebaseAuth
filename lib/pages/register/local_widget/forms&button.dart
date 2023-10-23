@@ -33,6 +33,33 @@ class _RegisterFormsAndButtonState extends State<RegisterFormsAndButton> {
     _cpSecure = !_cpSecure;
   }
 
+  void register() async {
+    try {
+      UserCredential userCredential = await _auth.createUserWithEmailAndPassword(
+          email: emailController.text.toString(),
+          password: passwordController.text.toString()
+      );
+      setState(() {
+        loading = false ;
+      });
+      Utils().toastMessage('Successfully registered', Colors.green);
+      Navigator.pushAndRemoveUntil(context,
+          MaterialPageRoute(builder: (context)=> const LogIn()), (route) => false);
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'weak-password') {
+        Utils().toastMessage('${e.message}', Colors.red);
+      } else if (e.code == 'email-already-in-use') {
+        print('The account already exists for that email.');
+        Utils().toastMessage('${e.message}', Colors.red);
+      }
+      setState(() {
+        loading = false ;
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
+
 
 @override
   void dispose() {
@@ -101,31 +128,7 @@ class _RegisterFormsAndButtonState extends State<RegisterFormsAndButton> {
                     setState(() {
                       loading = true;
                     });
-
-                    try {
-                      UserCredential userCredential = await _auth.createUserWithEmailAndPassword(
-                          email: emailController.text.toString(),
-                          password: passwordController.text.toString()
-                      );
-                      setState(() {
-                        loading = false ;
-                      });
-                      Utils().toastMessage('Successfully registered', Colors.green);
-                      Navigator.pushAndRemoveUntil(context,
-                          MaterialPageRoute(builder: (context)=> const LogIn()), (route) => false);
-                    } on FirebaseAuthException catch (e) {
-                      if (e.code == 'weak-password') {
-                        Utils().toastMessage('${e.message}', Colors.red);
-                      } else if (e.code == 'email-already-in-use') {
-                        print('The account already exists for that email.');
-                        Utils().toastMessage('${e.message}', Colors.red);
-                      }
-                      setState(() {
-                        loading = false ;
-                      });
-                    } catch (e) {
-                      print(e);
-                    }
+                    register();
                   } else {
                      return Utils().toastMessage("Password didn't match", Colors.red);
                   }

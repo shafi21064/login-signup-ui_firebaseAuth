@@ -21,6 +21,7 @@ class _LoginFormsAndButtonState extends State<LoginFormsAndButton> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   bool _psecure = true;
+  bool _loading = false;
 
   FirebaseAuth _auth = FirebaseAuth.instance;
 
@@ -28,23 +29,27 @@ class _LoginFormsAndButtonState extends State<LoginFormsAndButton> {
     _psecure = !_psecure;
   }
 
-  void logedIn ()async{
+  void tryThis()async {
     try {
-      UserCredential userCredential = await _auth.signInWithEmailAndPassword(
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: emailController.text.toString(),
           password: passwordController.text.toString()
       );
-      Navigator.push(context,
-          MaterialPageRoute(builder: (context)=> Home()));
-
+      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => Home()), (route) => false);
+      Utils().toastMessage('Loged In', Colors.green);
     } on FirebaseAuthException catch (e) {
-      print(e.code);
-      if (e.code == 'INVALID_LOGIN_CREDENTIALS') {
-        Utils().toastMessage('You have entered wrong information', Colors.red);
+
+      if(e.code.toString() == 'INVALID_LOGIN_CREDENTIALS') {
+        Utils().toastMessage('Wrong email or password', Colors.red);
+      }else if(e.code.toString() == 'invalid-email'){
+        Utils().toastMessage('invalid email', Colors.red);
       }
+      setState(() {
+        _loading = false;
+      });
+      debugPrint(e.code);
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -79,13 +84,17 @@ class _LoginFormsAndButtonState extends State<LoginFormsAndButton> {
             },
               buttonName: 'Forgot password?',
               fontSize: 13.sp,
-              color: Colors.black.withOpacity(.3)
+              color: Colors.black.withOpacity(.3),
           ),
           CustomButton(
+            loading: _loading,
               buttonName: 'Login',
               onTap: (){
                 if(_formKey.currentState!.validate()){
-                  logedIn();
+                  setState(() {
+                    _loading = true ;
+                  });
+                  tryThis();
                 }
               }
           )

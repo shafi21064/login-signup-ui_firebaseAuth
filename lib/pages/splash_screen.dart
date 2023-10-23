@@ -23,12 +23,9 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return  Scaffold(
       body: Center(
-        child: Text(
-          'Firebase Tutorial',
-          style: TextStyle(
-            fontSize: 25.sp,
-          ),
-        ),
+        child: Image.network('https://medallionretail.com/2017/wp-content/uploads/2021/07/iStock-1188158110_RGB-600x385.jpg')
+
+
       ),
     );
   }
