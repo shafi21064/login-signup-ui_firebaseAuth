@@ -1,5 +1,5 @@
 import 'package:firebase_project/components/back_button.dart';
-import 'package:firebase_project/pages/forgot_pass/local_widget/page_pic.dart';
+import 'package:firebase_project/components/page_pic.dart';
 import 'package:firebase_project/pages/forgot_pass/local_widget/form&button.dart';
 import 'package:firebase_project/pages/forgot_pass/local_widget/email_middle_part.dart';
 import 'package:flutter/material.dart';

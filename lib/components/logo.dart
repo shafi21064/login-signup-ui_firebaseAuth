@@ -6,10 +6,12 @@ class Logo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 100.h,
-      width: 100.w,
-      child: Image.network('https://png.pngitem.com/pimgs/s/248-2488288_transparent-shopping-centre-clipart-transparent-background-shopping-cart.png'),
+    return SizedBox(
+      child: Container(
+        height: 100.h,
+        width: 100.w,
+        child: Image.asset('assets/icons/logo.png'),
+      ),
     );
   }
 }

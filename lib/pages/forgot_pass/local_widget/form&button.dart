@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_project/components/buttons.dart';
 import 'package:firebase_project/components/input_field_with_title.dart';
-import 'package:firebase_project/pages/forgot_pass/view/otp.dart';
+import 'package:firebase_project/pages/login/view/otp.dart';
 import 'package:firebase_project/pages/forgot_pass/view/success.dart';
 import 'package:firebase_project/utils/utils.dart';
 import 'package:flutter/material.dart';

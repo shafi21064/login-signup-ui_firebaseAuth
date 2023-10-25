@@ -1,15 +1,16 @@
 import 'package:firebase_project/components/back_button.dart';
 import 'package:firebase_project/components/buttons.dart';
-import 'package:firebase_project/pages/forgot_pass/local_widget/otp_field.dart';
-import 'package:firebase_project/pages/forgot_pass/local_widget/otp_middle_part.dart';
-import 'package:firebase_project/pages/forgot_pass/local_widget/page_pic.dart';
+import 'package:firebase_project/pages/login/local_widget/otp_field.dart';
+import 'package:firebase_project/pages/login/local_widget/otp_middle_part.dart';
+import 'package:firebase_project/components/page_pic.dart';
 import 'package:firebase_project/pages/forgot_pass/local_widget/resent_button.dart';
 import 'package:firebase_project/pages/forgot_pass/view/reset_password.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class Otp extends StatelessWidget {
-  const Otp({super.key});
+  final String verificationId;
+  const Otp({super.key, required this.verificationId});
 
   @override
   Widget build(BuildContext context) {
@@ -27,9 +28,9 @@ class Otp extends StatelessWidget {
                   ),
                   const OtpMiddlePart(),
                   SizedBox(height: 20.h,),
-                  OtpField(),
-                  CustomButton(buttonName: 'Verify',
-                      onTap: ()=> Navigator.push(context, MaterialPageRoute(builder: (context)=> ResetPassword()))),
+                  OtpField(
+                    varificationId: verificationId,
+                  ),
                   const ResendButton()
                 ],
               ),

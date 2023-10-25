@@ -29,7 +29,7 @@ class _LoginFormsAndButtonState extends State<LoginFormsAndButton> {
     _psecure = !_psecure;
   }
 
-  void tryThis()async {
+  void login()async {
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: emailController.text.toString(),
@@ -94,7 +94,7 @@ class _LoginFormsAndButtonState extends State<LoginFormsAndButton> {
                   setState(() {
                     _loading = true ;
                   });
-                  tryThis();
+                  login();
                 }
               }
           )
