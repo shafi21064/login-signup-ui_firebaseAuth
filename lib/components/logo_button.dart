@@ -15,13 +15,16 @@ class LogoButton extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Container(
-        height: 40.h,
-        width: 70.w,
+        height: 80.h,
+        width: 80.w,
         decoration: BoxDecoration(
-            color: Colors.white,
+            color: Colors.blue.shade100,
             borderRadius: BorderRadius.circular(20.r)
         ),
-        child: Image.asset(imgUrl),
+        child: Padding(
+          padding: const EdgeInsets.all(12),
+          child: Image.asset(imgUrl),
+        ),
       ),
     );
   }

@@ -15,8 +15,8 @@ class PagePic extends StatelessWidget {
         margin: const EdgeInsets.all(16),
         height: 250.h,
         width: 250.w,
-          child: Image.network(imageUrl,
-          fit: BoxFit.cover,
+          child: Image.asset(imageUrl,
+          //fit: BoxFit.cover,
           ),
       ),
     );

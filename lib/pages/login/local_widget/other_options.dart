@@ -45,14 +45,14 @@ class OtherOptions extends StatelessWidget {
       height: 70.h,
       //color: Colors.black,
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          LogoButton(
-            onTap: (){
-              facebookTapWork(context);
-            },
-              imgUrl: 'assets/icons/facebook.png'
-          ),
+          // LogoButton(
+          //   onTap: (){
+          //     facebookTapWork(context);
+          //   },
+          //     imgUrl: 'assets/icons/facebook.png'
+          // ),
           LogoButton(onTap: (){
             googleTapWork(context);
           },

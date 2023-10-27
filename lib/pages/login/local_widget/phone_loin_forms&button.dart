@@ -82,6 +82,7 @@ class _PhoneLoginFormsAndButtonState extends State<PhoneLoginFormsAndButton> {
       children: [
         TextField(
           controller: phoneController,
+          keyboardType: TextInputType.number,
           decoration: InputDecoration(
             hintText: 'Enter your phone number',
             enabledBorder: OutlineInputBorder(

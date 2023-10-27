@@ -1,10 +1,8 @@
 import 'package:firebase_project/components/back_button.dart';
-import 'package:firebase_project/components/buttons.dart';
 import 'package:firebase_project/pages/login/local_widget/otp_field.dart';
 import 'package:firebase_project/pages/login/local_widget/otp_middle_part.dart';
 import 'package:firebase_project/components/page_pic.dart';
 import 'package:firebase_project/pages/forgot_pass/local_widget/resent_button.dart';
-import 'package:firebase_project/pages/forgot_pass/view/reset_password.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -24,7 +22,7 @@ class Otp extends StatelessWidget {
                 children: [
                   CustomBackButton(onPressed: () => Navigator.pop(context),),
                   const PagePic(
-                    imageUrl: 'https://www.web2sms.co.in/wp-content/uploads/2020/05/otpa-1024x948.png',
+                    imageUrl: 'assets/images/otpp.png',
                   ),
                   const OtpMiddlePart(),
                   SizedBox(height: 20.h,),
